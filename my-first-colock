@@ -1,0 +1,47 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class DigitalClock {
+
+    public static void main(String[] args) {
+        // Run the clock
+        runClock();
+    }
+
+    private static void runClock() {
+        while (true) {
+            // Get the current time
+            Date currentTime = new Date();
+            
+            // Format the time as HH:mm:ss
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String formattedTime = sdf.format(currentTime);
+            
+            // Print the formatted time
+            System.out.println(formattedTime);
+
+            // Wait for one second before updating the time
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Clear the console (optional)
+            clearConsole();
+        }
+    }
+
+    private static void clearConsole() {
+        try {
+            final String os = System.getProperty("os.name");
+            if (os.contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
